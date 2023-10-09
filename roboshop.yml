@@ -2,38 +2,125 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: frontend
+  labels:
+    app.kubernetes.io/name: frontend
 spec:
   containers:
     - name: frontend
-      image: image/frontend
+      image: rkalluru/frontend
 ---
-
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalogue
+  labels:
+    app.kubernetes.io/name: catalogue
+spec:
+  containers:
+    - name: catalogue
+      image: rkalluru/catalogue
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cart
+  labels:
+    app.kubernetes.io/name: cart
+spec:
+  containers:
+    - name: cart
+      image: rkalluru/cart
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shipping
+  labels:
+    app.kubernetes.io/name: shipping
+spec:
+  containers:
+    - name: shipping
+      image: rkalluru/shipping
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: payment
+  labels:
+    app.kubernetes.io/name: payment
+spec:
+  containers:
+    - name: payment
+      image: rkalluru/payment
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: catalogue-roboshop
 spec:
   selector:
-    app.kubernetes.io/name: MyApp
+    app.kubernetes.io/name: catalogue
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 9376
+      targetPort: 8080
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: cart-roboshop
 spec:
-  type: NodePort
   selector:
-    app.kubernetes.io/name: MyApp
+    app.kubernetes.io/name: cart
   ports:
-    # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-roboshop
+spec:
+  selector:
+    app.kubernetes.io/name: user
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-roboshop
+spec:
+  selector:
+    app.kubernetes.io/name: payment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping-roboshop
+spec:
+  selector:
+    app.kubernetes.io/name: shipping
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: frontend
+  ports:
     - port: 80
       targetPort: 80
-      # Optional field
-      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-      nodePort: 30007
-
