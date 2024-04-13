@@ -22,7 +22,7 @@ daemonset:
   #   mountPath: /usr/share/extras
   #   readOnly: true
   hostNetworking: false
-  # Allows you to add any config nginx.conf in /usr/share/filebeat
+  # Allows you to add any config nginx-expense.conf in /usr/share/filebeat
   # such as filebeat.yml for daemonset
   filebeatConfig:
     filebeat.yml: |
@@ -80,7 +80,7 @@ deployment:
   extraEnvs: []
   #  - name: MY_ENVIRONMENT_VAR
   #    value: the_value_goes_here
-  # Allows you to add any config nginx.conf in /usr/share/filebeat
+  # Allows you to add any config nginx-expense.conf in /usr/share/filebeat
   extraVolumes: []
   # - name: extras
   #   emptyDir: {}
@@ -221,7 +221,7 @@ envFrom: []
 extraEnvs: []
 extraVolumes: []
 extraVolumeMounts: []
-# Allows you to add any config nginx.conf in /usr/share/filebeat
+# Allows you to add any config nginx-expense.conf in /usr/share/filebeat
 # such as filebeat.yml for both daemonset and deployment
 filebeatConfig: {}
 nodeSelector: {}
